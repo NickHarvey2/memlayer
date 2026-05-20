@@ -1,15 +1,20 @@
-with import <nixpkgs> {};
-with pkgs.python3Packages;
-  buildPythonPackage rec {
-    pname = "fq";
-    src = ./src;
-    pyproject = true;
-    build-system = [ setuptools ];
-    propagatedBuildInputs = [
-      pytest
-      numpy
-      pkgs.libsndfile
-      uv
-      python
-    ];
-  }
+{ pkgs }:
+let
+  pythonPackages = pkgs.python3Packages;
+in
+pythonPackages.buildPythonPackage {
+  pname = "fq";
+  version = "0.1.0";
+  src = ./.;
+  pyproject = true;
+  build-system = [ pythonPackages.hatchling ];
+  propagatedBuildInputs = [
+    pythonPackages.mcp
+    pythonPackages.pydantic
+    pythonPackages.pytest
+    pythonPackages.numpy
+    pkgs.libsndfile
+    pkgs.uv
+    pythonPackages.python
+  ];
+}
