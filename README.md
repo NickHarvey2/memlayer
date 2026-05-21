@@ -1,4 +1,4 @@
-# fq MCP Server
+# memlayer MCP Server
 
 This is an MCP server implemented in Python.
 
@@ -15,7 +15,7 @@ uv sync
 To run the server using `stdio` transport:
 
 ```bash
-uv run src/fq/server.py
+uv run src/memlayer/server.py
 ```
 
 ## Development
@@ -23,5 +23,5 @@ uv run src/fq/server.py
 To run in development mode with the MCP Inspector:
 
 ```bash
-uv run mcp dev src/fq/server.py
+uv run mcp dev src/memlayer/server.py
 ```

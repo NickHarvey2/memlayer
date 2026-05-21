@@ -1,5 +1,5 @@
 {
-  description = "fq MCP Server Flake";
+  description = "memlayer MCP Server Flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";

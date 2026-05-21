@@ -1,7 +1,7 @@
 from mcp.server.fastmcp import FastMCP
 
 # Initialize the MCP server
-mcp = FastMCP("fq")
+mcp = FastMCP("memlayer")
 
 @mcp.tool()
 def hello(name: str = "World") -> str:

@@ -3,7 +3,7 @@ let
   pythonPackages = pkgs.python3Packages;
 in
 pythonPackages.buildPythonPackage {
-  pname = "fq";
+  pname = "memlayer";
   version = "0.1.0";
   src = ./.;
   pyproject = true;
