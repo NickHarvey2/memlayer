@@ -10,5 +10,3 @@
 - `uv run mcp dev src/memlayer/server.py`: Run server with MCP Inspector.
 - `pytest`: Run tests.
 
-## Gotchas
-- `numpy` and `libsndfile` are present in Nix configs but missing from `pyproject.toml`.

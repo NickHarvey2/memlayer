@@ -1,15 +1,6 @@
-{ pkgs }:
-let
-  pythonPackages = pkgs.python3Packages;
-in
+{ pkgs, pythonDeps, devDeps }:
 pkgs.mkShell {
-  buildInputs = [
-    pythonPackages.pytest
-    pythonPackages.numpy
-    pkgs.libsndfile
-    pkgs.uv
-    pythonPackages.python
-  ];
+  buildInputs = pythonDeps ++ devDeps;
   shellHook = ''
     echo "----------------------------------------------------"
     echo "Welcome to the memlayer development shell!"

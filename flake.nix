@@ -15,19 +15,34 @@
       inherit inputs;
     } {
       systems = flake-utils.lib.allSystems;
-      perSystem = {
-        config,
-        self,
-        pkgs,
-        system,
-        ...
-      }: let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
-      in {
-        devShells.default = pkgs.callPackage ./shell.nix {};
-        packages.default = pkgs.callPackage ./package.nix {};
+    perSystem = {
+      config,
+      self,
+      pkgs,
+      system,
+      ...
+    }: let
+      pkgs = import nixpkgs {
+        inherit system;
       };
+      pythonPackages = pkgs.python3Packages;
+      runtimeDeps = [
+        pythonPackages.mcp
+        pythonPackages.pydantic
+      ];
+      devDeps = [
+        pkgs.python3
+        pkgs.uv
+        pythonPackages.pytest
+      ];
+    in {
+      devShells.default = pkgs.callPackage ./shell.nix {
+        pythonDeps = runtimeDeps;
+        devDeps = devDeps;
+      };
+      packages.default = pkgs.callPackage ./package.nix {
+        pythonDeps = runtimeDeps;
+      };
+    };
     };
 }
