@@ -1,6 +1,7 @@
 # AGENTS.md
 
 ## Development Environment
+- Launch using `nix develop`
 - Uses `uv` for dependency management.
 - Uses `nix` for development shell (`shell.nix`).
 

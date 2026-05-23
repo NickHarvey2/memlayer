@@ -1,10 +1,15 @@
-{ pkgs, package }:
+{
+  pkgs,
+  buildInputs,
+}:
 pkgs.mkShell {
-  buildInputs = with pkgs; [
-    python3
-    uv
-    python3Packages.pytest
-  ] ++ (package.buildInputs or []);
+  buildInputs = with pkgs;
+    [
+      python3
+      uv
+      python3Packages.pytest
+    ]
+    ++ buildInputs;
   shellHook = ''
     echo "----------------------------------------------------"
     echo "Welcome to the memlayer development shell!"

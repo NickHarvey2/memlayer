@@ -11,23 +11,26 @@
     flake-utils,
     flake-parts,
     ...
-  } @ inputs: flake-parts.lib.mkFlake {
-    inherit inputs;
-  } {
-    systems = flake-utils.lib.allSystems;
-    perSystem = {
-      config,
-      self,
-      pkgs,
-      system,
-      ...
-    }: let
-      memlayer = pkgs.callPackage ./package.nix {};
-    in {
-      devShells.default = pkgs.callPackage ./shell.nix {
-        package = memlayer;
+  } @ inputs:
+    flake-parts.lib.mkFlake {
+      inherit inputs;
+    } {
+      flake = {
       };
-      packages.default = memlayer;
+      systems = flake-utils.lib.allSystems;
+      perSystem = {
+        config,
+        self,
+        pkgs,
+        system,
+        ...
+      }: let
+        memlayerPackage = pkgs.callPackage ./package.nix {};
+      in {
+        devShells.default = pkgs.callPackage ./shell.nix {
+          buildInputs = memlayerPackage.buildInputs;
+        };
+        packages.default = memlayerPackage;
+      };
     };
-  };
 }
