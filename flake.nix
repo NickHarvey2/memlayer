@@ -12,9 +12,9 @@
     flake-parts,
     ...
   } @ inputs: flake-parts.lib.mkFlake {
-      inherit inputs;
-    } {
-      systems = flake-utils.lib.allSystems;
+    inherit inputs;
+  } {
+    systems = flake-utils.lib.allSystems;
     perSystem = {
       config,
       self,
@@ -22,27 +22,12 @@
       system,
       ...
     }: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      pythonPackages = pkgs.python3Packages;
-      runtimeDeps = [
-        pythonPackages.mcp
-        pythonPackages.pydantic
-      ];
-      devDeps = [
-        pkgs.python3
-        pkgs.uv
-        pythonPackages.pytest
-      ];
+      memlayer = pkgs.callPackage ./package.nix {};
     in {
       devShells.default = pkgs.callPackage ./shell.nix {
-        pythonDeps = runtimeDeps;
-        devDeps = devDeps;
+        package = memlayer;
       };
-      packages.default = pkgs.callPackage ./package.nix {
-        pythonDeps = runtimeDeps;
-      };
+      packages.default = memlayer;
     };
-    };
+  };
 }

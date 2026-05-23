@@ -1,4 +1,4 @@
-{ pkgs, pythonDeps }:
+{ pkgs }:
 let
   pythonPackages = pkgs.python3Packages;
 in
@@ -8,5 +8,8 @@ pythonPackages.buildPythonPackage {
   src = ./.;
   pyproject = true;
   build-system = [ pythonPackages.hatchling ];
-  propagatedBuildInputs = pythonDeps;
+  buildInputs = [
+    pythonPackages.mcp
+    pythonPackages.pydantic
+  ];
 }
